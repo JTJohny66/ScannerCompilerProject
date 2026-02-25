@@ -1,17 +1,29 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+import java.io.IOException;
+import java.io.PushbackReader;
+import java.io.StringReader;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
+public class Main {
+    static void main(String[] args) {
+
+        //I added this just for fun to see it output everything
+        PushbackReader pbr = new PushbackReader(new StringReader(" loop x != y do calc x = x + 1 endloop\n"));
+        Scanner scanner = new Scanner(pbr);
+
+        while (true) {
+            try {
+                Scanner.TOKEN token = scanner.scan();
+
+                if (token == Scanner.TOKEN.SCANEOF) {
+                    break;
+                }
+
+                System.out.println(token + ": " + scanner.getTokenBufferString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+
     }
 }
